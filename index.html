@@ -1,0 +1,429 @@
+<!-- ============================================================
+  RETO: Laboratorio de Innovación Judicial
+  Insignia: Innovador Judicial
+  Autocontenido para Google Sites
+============================================================ -->
+
+<style>
+#reto-innovador{
+--navy:#142850;
+--blue:#2563eb;
+--sky:#38bdf8;
+--gold:#f59e0b;
+--goldl:#fde68a;
+--ok:#16a34a;
+--bad:#dc2626;
+--ink:#16213e;
+
+font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+max-width:760px;
+margin:auto;
+background:linear-gradient(160deg,#eef6ff,#ffffff);
+border:3px solid var(--navy);
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(20,40,80,.25);
+}
+
+#reto-innovador *{
+box-sizing:border-box;
+}
+
+#reto-innovador .hd{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 18px;
+background:linear-gradient(90deg,var(--navy),var(--blue));
+color:#fff;
+}
+
+#reto-innovador .pill{
+background:rgba(255,255,255,.2);
+padding:5px 12px;
+border-radius:999px;
+font-weight:700;
+}
+
+#reto-innovador .bd{
+padding:20px;
+}
+
+#reto-innovador .bar{
+height:14px;
+background:#dbe7ff;
+border-radius:999px;
+overflow:hidden;
+margin:8px 0 18px;
+}
+
+#reto-innovador .bar i{
+display:block;
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#38bdf8,#2563eb);
+transition:.4s;
+}
+
+#reto-innovador .challenge{
+background:#fff;
+border:2px solid #c7d8ff;
+border-radius:15px;
+padding:16px;
+margin-bottom:15px;
+}
+
+#reto-innovador .ops{
+display:grid;
+grid-template-columns:1fr;
+gap:10px;
+}
+
+#reto-innovador .btn{
+border:none;
+cursor:pointer;
+padding:14px;
+border-radius:12px;
+font-weight:800;
+background:#edf3ff;
+color:#142850;
+border:2px solid #bfd4ff;
+transition:.2s;
+text-align:left;
+}
+
+#reto-innovador .btn:hover{
+transform:translateY(-2px);
+background:#dbe8ff;
+}
+
+#reto-innovador .fb{
+margin-top:12px;
+padding:12px;
+border-radius:12px;
+display:none;
+}
+
+#reto-innovador .ok{
+display:block;
+background:#e8f8ed;
+border:2px solid var(--ok);
+}
+
+#reto-innovador .ko{
+display:block;
+background:#fdeaea;
+border:2px solid var(--bad);
+}
+
+#reto-innovador .hide{
+display:none;
+}
+
+#reto-innovador .end{
+text-align:center;
+}
+
+#reto-innovador .medal{
+font-size:90px;
+}
+
+#reto-innovador .score{
+font-size:32px;
+font-weight:900;
+color:var(--blue);
+}
+
+#reto-innovador .rev{
+list-style:none;
+text-align:left;
+padding:0;
+margin-top:15px;
+}
+
+#reto-innovador .rev li{
+padding:8px 12px;
+margin:6px 0;
+background:#eef5ff;
+border-radius:8px;
+}
+</style>
+
+<div id="reto-innovador">
+
+<div class="hd">
+
+<div>
+<b>💡 Laboratorio de Innovación Judicial</b><br>
+<small>Insignia: Innovador Judicial</small>
+</div>
+
+<span class="pill">
+⭐ <span id="ri-pts">0</span>
+</span>
+
+</div>
+
+<div class="bd" id="ri-game">
+
+<p>
+Has sido seleccionado por el Instituto Judicial para proponer soluciones innovadoras a problemas reales del sistema de justicia.
+</p>
+
+<p>
+Selecciona la alternativa que genere mayor eficiencia, modernización y valor institucional.
+</p>
+
+<b>Nivel de Innovación</b>
+
+<div class="bar">
+<i id="ri-bar"></i>
+</div>
+
+<div class="challenge">
+
+<h3 id="ri-title"></h3>
+
+<p id="ri-text"></p>
+
+</div>
+
+<div class="ops" id="ri-options"></div>
+
+<div id="ri-fb" class="fb"></div>
+
+</div>
+
+<div id="ri-end" class="bd end hide">
+
+<div class="medal" id="ri-medal">💡</div>
+
+<h2 id="ri-rank"></h2>
+
+<div class="score">
+<span id="ri-final"></span> puntos
+</div>
+
+<p id="ri-msg"></p>
+
+<ul class="rev" id="ri-rev"></ul>
+
+<button class="btn" onclick="location.reload()">
+🔄 Volver a intentar
+</button>
+
+</div>
+
+</div>
+
+<script>
+(function(){
+
+const retos=[
+
+{
+titulo:"Expedientes acumulados",
+texto:"Miles de expedientes físicos dificultan las consultas.",
+correcta:1,
+opciones:[
+"Contratar más archiveros",
+"Digitalizar y clasificar electrónicamente",
+"Comprar más archiveros físicos"
+]
+},
+
+{
+titulo:"Capacitación judicial",
+texto:"El personal tiene poco tiempo para capacitarse.",
+correcta:2,
+opciones:[
+"Enviar manuales impresos",
+"No realizar capacitación",
+"Implementar microaprendizajes digitales gamificados"
+]
+},
+
+{
+titulo:"Atención ciudadana",
+texto:"Los usuarios deben acudir presencialmente para conocer el estado de un trámite.",
+correcta:0,
+opciones:[
+"Implementar consulta en línea",
+"Incrementar ventanillas",
+"Reducir horarios de atención"
+]
+},
+
+{
+titulo:"Uso de IA",
+texto:"Se requiere agilizar búsquedas jurisprudenciales.",
+correcta:2,
+opciones:[
+"Consultar únicamente documentos físicos",
+"Crear más bibliotecas",
+"Implementar herramientas de IA responsable"
+]
+},
+
+{
+titulo:"Comunicación interna",
+texto:"Los avisos institucionales tardan en difundirse.",
+correcta:1,
+opciones:[
+"Imprimir más circulares",
+"Utilizar plataformas colaborativas digitales",
+"Esperar reuniones presenciales"
+]
+},
+
+{
+titulo:"Seguimiento de proyectos",
+texto:"No existe visibilidad sobre el avance de iniciativas.",
+correcta:0,
+opciones:[
+"Crear dashboards interactivos",
+"Enviar reportes trimestrales impresos",
+"No medir resultados"
+]
+}
+
+];
+
+let pos=0;
+let puntos=0;
+let respuestas=[];
+
+const title=document.getElementById("ri-title");
+const text=document.getElementById("ri-text");
+const opts=document.getElementById("ri-options");
+
+function cargar(){
+
+title.textContent=retos[pos].titulo;
+text.textContent=retos[pos].texto;
+
+document.getElementById("ri-bar").style.width=
+(pos/retos.length*100)+"%";
+
+opts.innerHTML="";
+
+retos[pos].opciones.forEach((op,i)=>{
+
+let b=document.createElement("button");
+
+b.className="btn";
+
+b.innerHTML=op;
+
+b.onclick=function(){
+
+evaluar(i);
+
+};
+
+opts.appendChild(b);
+
+});
+
+}
+
+function evaluar(i){
+
+const reto=retos[pos];
+
+const fb=document.getElementById("ri-fb");
+
+let ok=i===reto.correcta;
+
+if(ok){
+
+puntos+=100;
+
+fb.className="fb ok";
+
+fb.innerHTML=
+"<b>✅ Excelente innovación.</b> Esta solución genera mayor impacto, eficiencia y transformación digital.";
+
+}else{
+
+fb.className="fb ko";
+
+fb.innerHTML=
+"<b>❌ Oportunidad de mejora.</b> Existe una alternativa con mayor valor innovador para la institución.";
+
+}
+
+respuestas.push(ok);
+
+document.getElementById("ri-pts").textContent=puntos;
+
+setTimeout(()=>{
+
+fb.className="fb";
+
+pos++;
+
+if(pos<retos.length){
+
+cargar();
+
+}else{
+
+finalizar();
+
+}
+
+},2200);
+
+}
+
+function finalizar(){
+
+document.getElementById("ri-game").classList.add("hide");
+document.getElementById("ri-end").classList.remove("hide");
+
+let aciertos=respuestas.filter(x=>x).length;
+
+let rango,medalla,mensaje;
+
+if(aciertos===6){
+
+rango="Innovador Judicial Maestro";
+medalla="💡";
+mensaje="Has demostrado liderazgo en transformación digital judicial.";
+
+}else if(aciertos>=5){
+
+rango="Diseñador de Innovación";
+medalla="🚀";
+mensaje="Tus propuestas impulsan la evolución institucional.";
+
+}else if(aciertos>=3){
+
+rango="Impulsor del Cambio";
+medalla="⚙️";
+mensaje="Tienes una visión innovadora en desarrollo.";
+
+}else{
+
+rango="Explorador Judicial";
+medalla="🔰";
+mensaje="Continúa desarrollando tu pensamiento innovador.";
+
+}
+
+document.getElementById("ri-medal").textContent=medalla;
+document.getElementById("ri-rank").textContent=rango;
+document.getElementById("ri-final").textContent=puntos;
+document.getElementById("ri-msg").textContent=mensaje;
+
+document.getElementById("ri-rev").innerHTML=retos.map((r,i)=>
+"<li>"+(respuestas[i]?"✔":"✖")+" "+r.titulo+"</li>"
+).join("");
+
+}
+
+cargar();
+
+})();
+</script>
